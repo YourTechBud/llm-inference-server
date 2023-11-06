@@ -1,0 +1,44 @@
+name: llm-inference-server
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - _libgcc_mutex=0.1=conda_forge
+  - _openmp_mutex=4.5=2_gnu
+  - bzip2=1.0.8=hd590300_5
+  - ca-certificates=2023.7.22=hbcca054_0
+  - ld_impl_linux-64=2.40=h41732ed_0
+  - libexpat=2.5.0=hcb278e6_1
+  - libffi=3.4.2=h7f98852_5
+  - libgcc-ng=13.2.0=h807b86a_2
+  - libgomp=13.2.0=h807b86a_2
+  - libnsl=2.0.1=hd590300_0
+  - libsqlite=3.44.0=h2797004_0
+  - libuuid=2.38.1=h0b41bf4_0
+  - libzlib=1.2.13=hd590300_5
+  - ncurses=6.4=h59595ed_2
+  - openssl=3.1.4=hd590300_0
+  - pip=23.3.1=pyhd8ed1ab_0
+  - python=3.11.6=hab00c5b_0_cpython
+  - readline=8.2=h8228510_1
+  - setuptools=68.2.2=pyhd8ed1ab_0
+  - tk=8.6.13=noxft_h4845f30_101
+  - tzdata=2023c=h71feb2d_0
+  - wheel=0.41.3=pyhd8ed1ab_0
+  - xz=5.2.6=h166bdaf_0
+  - pip:
+      - annotated-types==0.6.0
+      - anyio==3.7.1
+      - click==8.1.7
+      - diskcache==5.6.3
+      - fastapi==0.104.1
+      - h11==0.14.0
+      - idna==3.4
+      - llama-cpp-python==0.2.14
+      - numpy==1.26.1
+      - pydantic==2.4.2
+      - pydantic-core==2.10.1
+      - sniffio==1.3.0
+      - starlette==0.27.0
+      - typing-extensions==4.8.0
+      - uvicorn==0.24.0.post1
