@@ -1,8 +1,8 @@
-from typing import Optional
+from typing import List, Optional
 
 from pydantic import BaseModel
 
-from inference.prompts import PromptTemplateName
+from inference.prompts import PromptMessage, PromptTemplateName
 
 
 class ModelLoadingOptions(BaseModel):
@@ -13,8 +13,7 @@ class ModelLoadingOptions(BaseModel):
     prompt_tmpl: str = "default"
 
 class InferenceOptions(BaseModel):
-    system_message: str
-    user_prompt: str
+    messages: List[PromptMessage]
     max_tokens: int = 2048
     temperature: float = 0.2
     top_p: float = 0.9

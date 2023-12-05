@@ -39,11 +39,10 @@ class LlamaCppModel:
         # First decide which prompt template we will use
         pt = self.prompt_tmpl if prompt_tmpl is None else prompt_tmpl
 
-        print("Inference options:", options)
         # Now run the inference
         with self.mutex:
             return self.model(
-                prompt=pt.get_prompt(options.system_message, options.user_prompt),
+                prompt=pt.get_prompt(options.messages),
                 max_tokens=options.max_tokens,
                 temperature=options.temperature,
                 top_p=options.top_p,

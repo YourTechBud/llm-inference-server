@@ -11,14 +11,42 @@ Simply python server to host Large Language Models on a restful API.
 
 ```bash
 make setup
-conda activate llm-inference-server
 ```
 
 ## Start server
 
 ```bash
+conda activate llm-inference-server
 make start
 ```
+
+## Config APIs
+
+### 1. Load model
+
+```bash
+curl --request POST \
+  --url http://localhost:8000/config/v1/load-model \
+  --header 'content-type: application/json' \
+  --data '{
+  "path": "./mistral-7b-openorca.Q5_K_M.gguf",
+  "options": {
+    "prompt_tmpl": "chatml"
+  }
+}'
+
+> Make sure you have downloaded a quantized ggufv2 model. Example: https://huggingface.co/TheBloke/Mistral-7B-OpenOrca-GGUF
+
+```
+
+### 2. Unload model
+
+```bash
+curl --request POST \
+  --url http://localhost:8000/config/v1/unload-model
+```
+
+
 
 ## OpenAPI spec
 

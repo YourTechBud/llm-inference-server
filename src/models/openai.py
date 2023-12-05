@@ -84,7 +84,7 @@ class CreateChatCompletionRequest(BaseModel):
     @validator("n")
     def check_n(cls, v):
         # Check if the value is in the range
-        if v is not None and (v <= 1 or v >= 128):
+        if v is not None and (v < 1 or v > 128):
             raise ValueError("n must be between 1 and 128")
         return v
 
@@ -92,7 +92,7 @@ class CreateChatCompletionRequest(BaseModel):
     @validator("presence_penalty")
     def check_presence_penalty(cls, v):
         # Check if the value is in the range
-        if v is not None and (v <= -2 or v >= 2):
+        if v is not None and (v < -2 or v > 2):
             raise ValueError("presence_penalty must be between -2 and 2")
         return v
 
@@ -100,7 +100,7 @@ class CreateChatCompletionRequest(BaseModel):
     @validator("temperature")
     def check_temperature(cls, v):
         # Check if the value is in the range
-        if v is not None and (v <= 0 or v >= 2):
+        if v is not None and (v < 0 or v > 2):
             raise ValueError("temperature must be between 0 and 2")
         return v
 
@@ -108,7 +108,7 @@ class CreateChatCompletionRequest(BaseModel):
     @validator("top_p")
     def check_top_p(cls, v):
         # Check if the value is in the range
-        if v is not None and (v <= 0 or v >= 1):
+        if v is not None and (v < 0 or v > 1):
             raise ValueError("top_p must be between 0 and 1")
         return v
 

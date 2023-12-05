@@ -1,46 +1,57 @@
 import enum
-from typing import Callable
+import jinja2
+
+from typing import Callable, List, Optional
+
+from pydantic import BaseModel
 
 class PromptTemplateName(enum.Enum):
     default = 0
     chatml = 1
 
+class PromptMessage(BaseModel):
+    role: str
+    content: Optional[str]
+
 class PromptTemplate:
-    def __init__(self, tmpl: Callable[[str, str], str], stop: str) -> None:
+    def __init__(self, tmpl: Callable[[List[PromptMessage]], str], stop: str) -> None:
         self.template = tmpl
         self.stop = stop if len(stop) > 0 else ""
 
-    def get_prompt(self, system_message: str, user_prompt: str) -> str:
-        return self.template(system_message, user_prompt)
+    def get_prompt(self, messages: List[PromptMessage]) -> str:
+        return self.template(messages)
 
 
 def get_default_tmpl() -> PromptTemplate:
-    def fn(system_message, user_prompt) -> str:
-        # Create a variable to store the prompt
-        prompt = ""
+    def fn(messages: List[PromptMessage]) -> str:
+        # # Create a variable to store the prompt
+        # prompt = ""
 
-        # Add a system message if provided
-        if len(system_message) > 0:
-            prompt += f"System:\n{system_message}\n"
+        # # Add a system message if provided
+        # if len(system_message) > 0:
+        #     prompt += f"System:\n{system_message}\n"
 
-        # Add a user message
-        prompt += f"User:\n{user_prompt}"
-        return prompt
+        # # Add a user message
+        # prompt += f"User:\n{user_prompt}"
+        # return prompt
+        return ""
 
     return PromptTemplate(fn, "")
 
 
 # Prompt template for chatml
+# TODO: Load jinja2 template from file
 def get_chatml_tmpl() -> PromptTemplate:
-    def fn(system_message, user_prompt) -> str:
-        if system_message == "":
-            system_message = "You are a helpul AI assistant. Answer the user's prompt step by step."
-        prompt = f"""<|im_start|>system
-{system_message}<|im_end|>
-<|im_start|>user
-{user_prompt}<|im_end|>
-<|im_start|>assistant"""
+    environment = jinja2.Environment()
+    chatml_tmpl: str = """{% for msg in messages %}<|im_start|>{{ msg.role }}
+{{ msg.content }}<|im_end|>
+{% endfor %}<|im_start|>assistant"""
+    template = environment.from_string(chatml_tmpl)
+    def fn(messages: List[PromptMessage]) -> str:
+        prompt = template.render(messages=messages)
+        print("================")
         print("Generated prompt:", prompt)
+        print("================")
         return prompt
 
     return PromptTemplate(fn, "<|im_end|>")

@@ -9,9 +9,3 @@ class LoadModelRequest(BaseModel):
     options: ModelLoadingOptions = ModelLoadingOptions()
 
 
-class StandardResponse(BaseModel):
-    message: str
-    error: Optional[str] = None
-
-    def to_json(self):
-        return self.__dict__
