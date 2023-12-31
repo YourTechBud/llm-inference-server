@@ -16,7 +16,6 @@ make setup
 ## Start server
 
 ```bash
-conda activate llm-inference-server
 make start
 ```
 

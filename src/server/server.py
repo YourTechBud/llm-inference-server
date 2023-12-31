@@ -182,6 +182,16 @@ def sanitize_json_text(text):
 def prepare_chat_completion_message(
     choice: CompletionChoice,
 ) -> CreateChatCompletionChoice:
+    """
+    Prepare a chat completion message.
+
+    Args:
+        choice (CompletionChoice): The completion choice.
+
+    Returns:
+        CreateChatCompletionChoice: The prepared chat completion choice.
+
+    """
     fn_call: Optional[ChatCompletionMessageFunctionCall] = None
     # Check if output suggests a function call
     if "FUNC_CALL" in choice["text"]:
